@@ -2,19 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Connect to Wallet - EXRP</title>
+  <title>EXRP Wallet Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f6fa;
+      color: #2f3640;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #192a56;
+    }
+
+    p {
+      font-size: 1rem;
+      margin: 10px 0;
+    }
+
+    .balance {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #273c75;
+    }
+
+    input[type="number"] {
+      width: calc(100% - 24px);
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #dcdde1;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #00a8ff;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0097e6;
+    }
+
+    #mintStatus {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .success {
+      color: #44bd32;
+    }
+
+    .error {
+      color: #e84118;
+    }
+  </style>
 </head>
 <body>
-  <h1>Wallet Information</h1>
-  <p id="walletAddress">Loading...</p>
-  <p id="ethBalance">ETH Sepolia: ...</p>
-  <p id="exrpBalance">EXRP Amount: ...</p>
-  <p id="xrpPrice">EXRP USD Price: ...</p>
+  <div class="container">
+    <h1>Wallet Information</h1>
+    <p id="walletAddress" class="balance">Loading...</p>
+    <p id="ethBalance" class="balance">ETH Sepolia: ...</p>
+    <p id="exrpBalance" class="balance">EXRP Amount: ...</p>
+    <p id="xrpPrice" class="balance">EXRP USD Price: ...</p>
 
-  <h2>Mint EXRP Tokens</h2>
-  <input type="number" id="mintAmount" placeholder="Amount to mint" />
-  <button id="mintButton">Mint EXRP</button>
-  <p id="mintStatus"></p>
+    <h2>Mint EXRP Tokens</h2>
+    <input type="number" id="mintAmount" placeholder="Amount to mint" />
+    <button id="mintButton">Mint EXRP</button>
+    <p id="mintStatus"></p>
+  </div>
 
   <script>
     async function loadBalances() {
@@ -31,23 +105,20 @@
       }
     }
 
-    loadBalances();
-
     async function loadPrice() {
       try {
         const res = await fetch("/price");
         const data = await res.json();
-        document.getElementById("xrpPrice").textContent = `XRP USD: $${data.priceUSD}`;
+        document.getElementById("xrpPrice").textContent = `EXRP USD: $${data.priceUSD}`;
       } catch(err) {
         console.error(err);
         document.getElementById("xrpPrice").textContent = "Error loading prices";
       }
     }
 
+    loadBalances();
     loadPrice();
-  </script>
 
-  <script>
     const mintButton = document.getElementById("mintButton");
     const mintAmountInput = document.getElementById("mintAmount");
     const mintStatus = document.getElementById("mintStatus");
@@ -56,10 +127,12 @@
       const amount = mintAmountInput.value;
       if (!amount || Number(amount) <= 0) {
         mintStatus.textContent = "Enter a valid amount";
+        mintStatus.className = "error";
         return;
       }
 
       mintStatus.textContent = "Minting...";
+      mintStatus.className = "";
 
       try {
         const res = await fetch("/mint", {
@@ -71,19 +144,22 @@
         const data = await res.json();
         if (data.success) {
           mintStatus.textContent = `✅ Mint Successful: ${data.amount} EXRP (tx: ${data.txHash})`;
-          // Opcional: actualizar balances después del mint
-          loadBalances();
+          mintStatus.className = "success";
+          loadBalances(); 
         } else {
-          mintStatus.textContent = `Error: ${data.error || "Unknowledge"}`;
+          mintStatus.textContent = `Error: ${data.error || "Unknown"}`;
+          mintStatus.className = "error";
         }
       } catch (err) {
         console.error(err);
         mintStatus.textContent = "Error connecting with server";
+        mintStatus.className = "error";
       }
     });
-  </script> 
+  </script>
 </body>
 </html>
+
 
 
 

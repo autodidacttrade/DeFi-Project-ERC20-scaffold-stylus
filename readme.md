@@ -283,6 +283,7 @@ This project is a ERC-20 Test Job Application.
 11. Creation of the node to read and replicate the XRP price, and installation of the library "express".
 12. Verification the deploying of my wallet/contract in Etherscan because I had problems to import the ERC-20 token in my MetaMask wallet, so I imported the tokens in Rabby Wallet: "https://sepolia.etherscan.io/token/0x8f423758ac39b6962cb052c819d5f1761768fcb2?a=0x8181ac4ee632dd0a9ce9380b07a8842b18001702".
 13. Creation of the Front-End to connect a wallet, show the information wallet and the XRP prices replicated in EXRP token, this part has the creation of two files: server.js (back-end) and connect_wallet.html (front-end).
+14. Creation of the Mint with a implementation of back-end to mint more tokens within the main owner wallet deployed.
 
 
 ## Contributing to Scaffold-Stylus
