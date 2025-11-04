@@ -291,7 +291,8 @@ This project is a ERC-20 Test Job Application.
 15. Several attempts to deploy my Front-End in Vercel but I couldn't.
 16. My solution was just deployed the most important files of my front-end and back-end in my personal vps: "http://161.132.55.153:3000".
 17. Setup of the RPC Node, .env, hardhat.config.js and deploy ERC-20 Smart Contract in Arbitrum Sepolia: "https://sepolia.arbiscan.io/address/0x7EB53A531F2029a580ED285f53dE48447B02b168".
-18. Etherscan verification and Test of the dApp from "http://161.132.55.153:3000".     
+18. Etherscan verification and Test of the dApp from "http://161.132.55.153:3000".
+19. Video Explanation Link: "https://drive.google.com/file/d/1fFjlZ9DL3kTxx8I2JR_a_3oq0L9PLvlK/view?usp=sharing"       
 
 
 ## Contributing to Scaffold-Stylus
