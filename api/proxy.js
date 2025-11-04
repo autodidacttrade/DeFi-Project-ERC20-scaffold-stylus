@@ -1,23 +1,21 @@
+// api/[...path].js
+import fetch from "node-fetch";
+
 export default async function handler(req, res) {
+  const path = req.query.path.join("/"); // captura balances, price, mint
+  const url = `http://161.132.55.153:3000/${path}`;
+
   try {
-    const url = `http://161.132.55.153:3000${req.url.replace("/api", "")}`;
-
-    const options = {
+    const response = await fetch(url, {
       method: req.method,
-      headers: { ...req.headers }
-    };
-
-    if (req.method === "POST") {
-      options.body = JSON.stringify(req.body);
-      options.headers['Content-Type'] = 'application/json';
-    }
-
-    const response = await fetch(url, options);
-    const data = await response.text();
-    res.status(response.status).send(data);
+      headers: req.headers,
+      body: req.method === "POST" ? JSON.stringify(req.body) : undefined
+    });
+    const data = await response.json();
+    res.status(200).json(data);
   } catch (err) {
-    console.error("Proxy error:", err);
-    res.status(500).json({ error: "Proxy failed" });
+    res.status(500).json({ error: err.message });
   }
 }
+
 
