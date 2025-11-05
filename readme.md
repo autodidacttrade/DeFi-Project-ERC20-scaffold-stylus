@@ -51,8 +51,8 @@ This project implements a dApp and an ERC-20 token.
 
 # Live Deployment:
 
-. ERC-20 Smart Contract: 0x7EB53A531F2029a580ED285f53dE48447B02b168 (Arbitrum Sepolia)
-. Front-End: http://161.132.55.153:3000
+1. ERC-20 Smart Contract: 0x7EB53A531F2029a580ED285f53dE48447B02b168 (Arbitrum Sepolia)
+2. Front-End: http://161.132.55.153:3000
 
 ## Contributing to Scaffold-Stylus
 
